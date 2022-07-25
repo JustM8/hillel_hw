@@ -55,9 +55,13 @@ class Color
         return $this->red  == $this->green && $this->green == $this->blue;
     }
 
-    public function mix(object $color):int
+    public function mix(object $color):object
     {
-        return intval(($color->red+$color->green+$color->blue)/3);
+        $color->red = intval(($color->red+$color->green+$color->blue)/2);
+        $color->green = intval(($color->red+$color->green+$color->blue)/2);
+        $color->blue = intval(($color->red+$color->green+$color->blue)/2);
+
+        return $color;
     }
 
     public static function random():object
@@ -78,8 +82,8 @@ try {
     echo "Simple color: {$color->getRed()} {$color->getGreen()} {$color->getBlue()}";
     echo '<br>';
 
-    $mixedColor = $color->mix(new Color(115, 255, 3));
-    echo "Mixed: {$mixedColor}";
+    $mixedColor = $color->mix(new Color(100, 100, 100));
+    echo "Mixed: {$mixedColor->getRed()},{$mixedColor->getGreen()},{$mixedColor->getBlue()}";
 
 }catch (Exception $exception){
     echo "Error message: {$exception->getMessage()}";
