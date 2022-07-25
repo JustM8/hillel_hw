@@ -27,45 +27,37 @@ class Color
 
     private function setRed(int $red):void
     {
-        if($red>=0 && $red<=255):
-            $this->red = $red;
-        else:
+        if($red<0 || $red>255){
             throw new Exception('Out of range red');
-        endif;
+        }else{
+            $this->red = $red;
+        }
     }
     private function setGreen(int $green):void
     {
-        if($green>=0 && $green<=255):
-            $this->green = $green;
-        else:
+        if($green<0 || $green>255){
             throw new Exception('Out of range green');
-        endif;
+        }else{
+            $this->green = $green;
+        }
     }
     private function setBlue(int $blue):void
     {
-        if($blue>=0 && $blue<=255):
-            $this->blue = $blue;
-        else:
+        if($blue<0 || $blue>255){
             throw new Exception('Out of range blue');
-        endif;
+        }else{
+            $this->blue = $blue;
+        }
     }
 
     public function equals():bool
     {
-        if($this->red  == $this->green && $this->green == $this->blue):
-            return true;
-        else:
-            return false;
-        endif;
+        return $this->red  == $this->green && $this->green == $this->blue;
     }
 
-    public function mix(object $color):object
+    public function mix(object $color):int
     {
-        $color->red = intval(($this->red+$color->red)/2);
-        $color->green =  intval(($this->green+$color->green)/2);
-        $color->blue = intval(($this->blue+$color->blue)/2);
-
-        return $color;
+        return intval(($color->red+$color->green+$color->blue)/3);
     }
 
     public static function random():object
@@ -86,22 +78,10 @@ try {
     echo "Simple color: {$color->getRed()} {$color->getGreen()} {$color->getBlue()}";
     echo '<br>';
 
-    $mixedColor = $color->mix(new Color(115, 100, 100));
-    echo "Mixed: {$mixedColor->getRed()} {$mixedColor->getGreen()} {$mixedColor->getBlue()}";
+    $mixedColor = $color->mix(new Color(115, 255, 3));
+    echo "Mixed: {$mixedColor}";
 
 }catch (Exception $exception){
     echo "Error message: {$exception->getMessage()}";
 }
 
-//$color = new Color(444,200,200);
-//echo 'Equals check: ';
-//var_dump($color->equals()); //перевірка на рівність
-//echo '<br> Static random: ';
-//var_dump($color->random()); //рандомні значення кольорів
-//
-//echo '<br>';
-//    echo "Simple color: {$color->getRed()} {$color->getGreen()} {$color->getBlue()}";
-//echo '<br>';
-//
-//$mixedColor = $color->mix(new Color(115, 100, 100));
-//echo "Mixed: {$mixedColor->getRed()} {$mixedColor->getGreen()} {$mixedColor->getBlue()}";
