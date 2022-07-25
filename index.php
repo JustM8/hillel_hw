@@ -30,7 +30,7 @@ class Color
         if($red>=0 && $red<=255):
             $this->red = $red;
         else:
-            throw new Exception('Out of range');
+            throw new Exception('Out of range red');
         endif;
     }
     private function setGreen(int $green):void
@@ -38,7 +38,7 @@ class Color
         if($green>=0 && $green<=255):
             $this->green = $green;
         else:
-            throw new Exception('Out of range');
+            throw new Exception('Out of range green');
         endif;
     }
     private function setBlue(int $blue):void
@@ -46,7 +46,7 @@ class Color
         if($blue>=0 && $blue<=255):
             $this->blue = $blue;
         else:
-            throw new Exception('Out of range');
+            throw new Exception('Out of range blue');
         endif;
     }
 
@@ -75,18 +75,33 @@ class Color
     }
 }
 
+try {
+    $color = new Color(200,200,200);
+    echo 'Equals check: ';
+    var_dump($color->equals()); //перевірка на рівність
+    echo '<br> Static random: ';
+    var_dump($color->random()); //рандомні значення кольорів
 
-$color = new Color(200,200,200);
-//var_dump($color);
-echo 'Equals check: ';
-var_dump($color->equals()); //перевірка на рівність
-echo '<br> Static random: ';
-var_dump($color->random()); //рандомні значення кольорів
-
-echo '<br>';
+    echo '<br>';
     echo "Simple color: {$color->getRed()} {$color->getGreen()} {$color->getBlue()}";
-echo '<br>';
+    echo '<br>';
 
-$mixedColor = $color->mix(new Color(115, 100, 100));
-//var_dump($mixedColor);
-echo "Mixed: {$mixedColor->getRed()} {$mixedColor->getGreen()} {$mixedColor->getBlue()}";
+    $mixedColor = $color->mix(new Color(115, 100, 100));
+    echo "Mixed: {$mixedColor->getRed()} {$mixedColor->getGreen()} {$mixedColor->getBlue()}";
+
+}catch (Exception $exception){
+    echo "Error message: {$exception->getMessage()}";
+}
+
+//$color = new Color(444,200,200);
+//echo 'Equals check: ';
+//var_dump($color->equals()); //перевірка на рівність
+//echo '<br> Static random: ';
+//var_dump($color->random()); //рандомні значення кольорів
+//
+//echo '<br>';
+//    echo "Simple color: {$color->getRed()} {$color->getGreen()} {$color->getBlue()}";
+//echo '<br>';
+//
+//$mixedColor = $color->mix(new Color(115, 100, 100));
+//echo "Mixed: {$mixedColor->getRed()} {$mixedColor->getGreen()} {$mixedColor->getBlue()}";
