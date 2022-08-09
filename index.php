@@ -1,91 +1,28 @@
 <?php
-class Color
-{
-    private int $red;
-    private int $green;
-    private int $blue;
 
-    public function __construct(int $red, int $green, int $blue)
-    {
-        $this->setRed($red);
-        $this->setGreen($green);
-        $this->setBlue($blue);
-    }
+require_once 'Classes/Currency.php';
+require_once 'Classes/Money.php';
 
-    public function getRed():int
-    {
-        return $this->red;
-    }
-    public function getGreen():int
-    {
-        return $this->green;
-    }
-    public function getBlue():int
-    {
-        return $this->blue;
-    }
+use Classes\Currency;
+use Classes\Money;
 
-    private function setRed(int $red):void
-    {
-        if($red<0 || $red>255){
-            throw new Exception('Out of range red');
-        }else{
-            $this->red = $red;
-        }
-    }
-    private function setGreen(int $green):void
-    {
-        if($green<0 || $green>255){
-            throw new Exception('Out of range green');
-        }else{
-            $this->green = $green;
-        }
-    }
-    private function setBlue(int $blue):void
-    {
-        if($blue<0 || $blue>255){
-            throw new Exception('Out of range blue');
-        }else{
-            $this->blue = $blue;
-        }
-    }
-
-    public function equals():bool
-    {
-        return $this->red  == $this->green && $this->green == $this->blue;
-    }
-
-    public function mix(object $color):object
-    {
-        $color->red = intval(($color->red+$color->green+$color->blue)/2);
-        $color->green = intval(($color->red+$color->green+$color->blue)/2);
-        $color->blue = intval(($color->red+$color->green+$color->blue)/2);
-
-        return $color;
-    }
-
-    public static function random():object
-    {
-        $rgb = (object) array('red'=>mt_rand(0,255),'green'=>mt_rand(0,255),'blue'=>mt_rand(0,255));
-        return $rgb;
-    }
-}
 
 try {
-    $color = new Color(200,200,200);
-    echo 'Equals check: ';
-    var_dump($color->equals()); //перевірка на рівність
-    echo '<br> Static random: ';
-    var_dump($color->random()); //рандомні значення кольорів
+    $cur = new Currency('EUR');
+    $money = new Money(100.0,new Currency('EUR'));
+    $money2 = new Money(50.1,new Currency('EUR'));
 
+    echo $cur->getIsCode();
     echo '<br>';
-    echo "Simple color: {$color->getRed()} {$color->getGreen()} {$color->getBlue()}";
+    echo '<hr>';
+    var_dump($cur->equals('EUR','EUR'));
     echo '<br>';
+    echo '<hr>';
+    print_r($money->equals(new Money(100.0,new Currency('EUR')),new Money(50.1,new Currency('EUR'))));
+    echo '<br>';
+    echo '<hr>';
+    print_r($money->add(new Money(100.0,new Currency('EUR')),new Money(50.1,new Currency('EUR'))));
 
-    $mixedColor = $color->mix(new Color(100, 100, 100));
-    echo "Mixed: {$mixedColor->getRed()},{$mixedColor->getGreen()},{$mixedColor->getBlue()}";
-
-}catch (Exception $exception){
-    echo "Error message: {$exception->getMessage()}";
+}catch (InvalidArgumentException  $e){
+    echo "Error message: {$e->getMessage()}";
 }
-
