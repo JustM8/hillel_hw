@@ -1,11 +1,16 @@
 <?php
 
-require_once 'Classes/Currency.php';
-require_once 'Classes/Money.php';
+spl_autoload_register(function ($class_name){
+    $file = __DIR__.'/'.str_replace('\\','/',$class_name).'.php';
+
+    if(!file_exists($file)){
+        throw new Exception("Class [{$class_name}] dose not exist in [{$file}] path");
+    }
+    require_once $file;
+});
 
 use Classes\Currency;
 use Classes\Money;
-
 
 try {
     $cur = new Currency('EUR');
