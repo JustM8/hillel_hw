@@ -1,7 +1,6 @@
 <?php
 
 namespace Classes;
-
 use PDO;
 
 class Users

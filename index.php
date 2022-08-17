@@ -38,10 +38,10 @@ try {
         </select>
         <button id="btnDell" onclick="ajaxHandler('deleteUser',$(this).attr('data-id'))" data-id="#">Delete</button>
     </form>
-    <?
+    <?php
 }catch (Exception $exception){
    ?><button id="create" onclick="ajaxHandler('create',this.id,event.preventDefault())">Create table users</button>
-    <?
+    <?php
 
 }
 
